@@ -4,11 +4,10 @@ int LinearSearch(int arr[],int n,int key){
     int pos = 0;
     for(int i=0;i<n;i++){
         if(arr[i] == key){
-            break;
+            pos++;
         }
-        pos++;
     }
-    return pos+1;
+    return pos;
 }
 
 int main() {
@@ -25,7 +24,7 @@ int main() {
         scanf("%d",&key);
         int pos = LinearSearch(arr,n,key);
         if(pos != n){
-            printf("Present : %d\n",pos);
+            printf("%d - %d\n",key,pos);
         }
         else {
             printf("Not Present : %d\n",n);
