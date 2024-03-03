@@ -23,23 +23,21 @@ void SelectionSort(vector<int> &arr,int n){
 }
 
 int main() {
-    int t;
-    cin>>t;
-    while(t--){
-        int n;
-        cin>>n;
-        vector<int> arr(n);
-        for(int i=0;i<n;i++){
-            cin>>arr[i];
-        }
-        cout<<"Before Sort"<<endl;
-        for(int i:arr){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-        SelectionSort(arr,n);
-        for(int i:arr){
-            cout<<i<<" ";
-        }
+    // int n;
+    // cin>>n;
+    // vector<int> arr(n);
+    // for(int i=0;i<n;i++){
+    //     cin>>arr[i];
+    // }
+    int n = 7;
+    vector<int> arr = {4,3,5,1,2,3,4};
+    cout<<"Before Sort"<<endl;
+    for(int i:arr){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+    SelectionSort(arr,n);
+    for(int i:arr){
+        cout<<i<<" ";
     }
 }
