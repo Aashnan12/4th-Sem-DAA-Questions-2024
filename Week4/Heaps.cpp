@@ -1,86 +1,88 @@
 #include<iostream>
+#include<vector>
 using namespace std;
 
 class heap{
-    public:
-    int arr[100];
+public:
     int size;
+
     heap() {
-        arr[0] = -1;
         size = 0;
     }
 
-    void print() {
-        cout<<endl;
-        for(int i=1;i<=size;i++){
-            cout<<arr[i]<<" ";
+    void print(vector<int> &nums) {
+        cout << endl;
+        for(int i = 0; i < size; i++){
+            cout << nums[i] << " ";
+        }
+        cout << endl;
+    }
+
+    void Build_Max_Heap(vector<int> &nums, int n, int i) {
+        int largest = i;
+        int left = 2*i + 1;
+        int right = 2*i + 2;
+
+        if(left < n && nums[largest] < nums[left]) {
+            largest = left;
+        }
+        if(right < n && nums[largest] < nums[right]){
+            largest = right;
+        }
+        if(largest != i){
+            swap(nums[largest],nums[i]);
+            Build_Max_Heap(nums, n, largest);
+        }
+    }
+    
+    void Build_Min_Heap(vector<int> &nums, int n, int i) {
+        int smallest = i;
+        int left = 2*i + 1;
+        int right = 2*i + 2;
+
+        if(left < n && nums[smallest] > nums[left]) {
+            smallest = left;
+        }
+        if(right < n && nums[smallest] > nums[right]){
+            smallest = right;
+        }
+        if(smallest != i){
+            swap(nums[smallest],nums[i]);
+            Build_Min_Heap(nums, n, smallest);
+        }
+    }
+    
+    void heapifyMax(vector<int> &nums){
+        for(int i = size / 2 - 1; i >= 0; i--){
+            Build_Max_Heap(nums, size, i);
         }
     }
 
-    void insert(int key){
-        size = size+1;
-        int index = size;
-        arr[index] = key;
-        
-        while(index>1){
-            int parent = index/2;
-            if(arr[index] > arr[parent]){
-                swap(arr[index],arr[parent]);
-                index = parent;
-            }
-            else{
-                return;
-            }
+    void heapifyMin(vector<int> &nums){
+        for(int i = size / 2 - 1; i >= 0; i--){
+            Build_Min_Heap(nums, size, i);
         }
     }
-
-    void deleteheap(){
-        if(size == 0){
-            cout<<"Heap Empty"<<endl;
-            return;
-        }
-        arr[1] = arr[size];
-        size--;
-        int index = 1;
-        while(index <= size){
-            int leftchild = 2*index;
-            int rightchild = 2*index+1;
-            if(leftchild <= size && rightchild <= size && arr[leftchild] > arr[index] && arr[leftchild] > arr[rightchild]){
-                swap(arr[index],arr[leftchild]);
-                index = leftchild;
-            }
-            else if(rightchild <= size && arr[rightchild] > arr[index]){
-                swap(arr[index],arr[rightchild]);
-                index = rightchild;
-            }
-            else {
-                return ;
-            }
-        }
-
-    }
-
 };
 
 int main() {
     heap h;
-    int n;
-    cin>>n;
-    for(int i=0;i<n;i++){
-        int key;
-        cin>>key;
-        h.insert(key);
-    }
-    h.print();
-    h.deleteheap();
-    h.print();
-    h.deleteheap();
-    h.print();
-    h.deleteheap();
-    h.print();
-    h.deleteheap();
-    h.print();
-    h.deleteheap();
-    h.print();
-    h.deleteheap();
+    int n = 7;
+    vector<int> nums{3,1,5,6,7,4,2};
+    h.size = n;
+
+    cout << "Original array: ";
+    h.print(nums);
+
+    // Convert the array into a max heap
+    h.heapifyMax(nums);
+    cout << "Max heap: ";
+    h.print(nums);
+
+    // Convert the array into a min heap
+    h.heapifyMin(nums);
+    cout << "Min heap: ";
+    h.print(nums);
+
+    return 0;
 }
